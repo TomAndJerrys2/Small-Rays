@@ -1,11 +1,10 @@
 #include <iostream>
 
-// Small Raytracing engine - for learning Graphics Programming
-// Kyle Brady @ 2025 18/12
+#include "small_rays.hpp"
 
-// Configuration
-#define IMAGE_HEIGHT 256
-#define IMAGE_WIDTH 256
+// Small Raytracing engine - for learning Graphics Programming
+//
+// Kyle Brady @ 2025 18/12
 
 // Same Behaviour Currently
 const bool generate_image() {
@@ -25,7 +24,12 @@ const bool generate_image() {
 	
 	// Looping through Columns and Rows for each Pixel;
 	for(uint8_t i = 0; i < IMAGE_HEIGHT; i++) {
+		
+		// faster logging and character flushing
+		std::clog << "\rLines Left: " << (IMAGE_HEIGHT - 1) << ' ' << std::flush;
+
 		for(uint8_t j = 0; j < IMAGE_WIDTH; j++) {
+
 			double d_red = (static_cast<double>(i)) / (IMAGE_WIDTH - 1);
 			double d_green = (static_cast<double>(j)) / (IMAGE_WIDTH - 1);
 			double d_blue = 0.0; // default value;
@@ -39,7 +43,8 @@ const bool generate_image() {
 			std::cout << "Red:" << i_red << "\nGreen:" << i_green << "\nBlue:" << i_blue << '\n'; 
 		}
 	}
-
+	
+	std::clog << "\rCompleted Pixel Load! <<<<<<<<<<<<<<< \n";
 
 	// output -> image.ppm file
 	return true; // on success;
