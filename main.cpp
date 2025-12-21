@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "small_rays.hpp"
+#include "Vector3.hpp"
 
 // Small Raytracing engine - for learning Graphics Programming
 //
