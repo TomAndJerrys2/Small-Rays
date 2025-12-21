@@ -36,18 +36,12 @@ const bool generate_image() {
 		std::clog << "\rLines Left: " << (IMAGE_HEIGHT - 1) << ' ' << std::flush;
 
 		for(uint8_t j = 0; j < IMAGE_WIDTH; j++) {
+			
+			auto pixel_colour = Colour(
+				double(i) / (IMAGE_WIDTH - 1), double(j) / (IMAGE_HEIGHT - 1), 0
+			);
 
-			double d_red = (static_cast<double>(i)) / (IMAGE_WIDTH - 1);
-			double d_green = (static_cast<double>(j)) / (IMAGE_WIDTH - 1);
-			double d_blue = 0.0; // default value;
-			
-			// From 0.0/1.0 to 0/255 
-			int i_red = (static_cast<int>(255.999 * d_red));
-			int i_green = (static_cast<int>(255.999 * d_green));
-			int i_blue = (static_cast<int>(255.999 * d_blue));
-			
-			// for Debug
-			std::cout << "Red:" << i_red << "\nGreen:" << i_green << "\nBlue:" << i_blue << '\n'; 
+			write_colour(std::cout, pixel_colour);
 		}
 	}
 	
