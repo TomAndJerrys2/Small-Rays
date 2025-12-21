@@ -70,4 +70,58 @@ class Vector3 {
 		}
 };
 
+// Utility functions
+
+// insertion stream operator for printing {x,y,z}
+inline std::ostream & operator << (std::ostream & output, const Vector3 & vec) {
+	return output << vec.arr[0] << ' ' << vec.arr[1] << ' ' << vec.arr[2] << '\n';
+}
+
+// Adding two vectors quantities
+inline Vector3 operator + (const Vector3 & vec1, const Vector3 & vec2) {
+	// x1 + x2, y1 + y2, z1 + z2
+	return Vector3(
+		(vec1.arr[0] + vec2.arr[0]), (vec1.arr[1] + vec2.arr[1]), (vec1.arr[2] + vec2.arr[2])
+	);
+}
+
+// Subtracting two vector quantities
+inline Vector3 operator - (const Vector3 & vec1, const Vector3 & vec2) {
+	// x1 - x2, y1 - y2, z1 - z2
+	return Vector3(
+		(vec1.arr[0] - vec2.arr[0]), (vec1.arr[1] - vec2.arr[1]), (vec1.arr[2] - vec2.arr[2])
+	);	
+}
+
+// Cross Product of two vector quantities
+inline Vector3 operator * (const Vector3 & vec1, const Vector3 & vec2) {
+	// x1 * x2, y1 * y2, z1 * z2
+	return Vector3(
+		(vec1.arr[0] * vec2.arr[0]), (vec1.arr[1] * vec2.arr[1]), (vec1.arr[2] * vec2.arr[2])
+	);
+}
+
+// Dot Product of two vector quantities
+inline double dot_product(const Vector3 & vec1, const Vector3 & vec2) {
+	return (
+		(vec1.arr[0] * vec2.arr[0]) + (vec1.arr[1] * vec2.arr[1])+ (vec1.arr[2] * vec2.arr[2])
+	);
+}
+
+// multiplying a vector quantity by a scalar quantity (just overloads * operator)
+inline Vector3 operator * (const Vector3 & vec, double scalar) {
+	// scalar * {x,y,z}
+	return Vector3(
+		(scalar * vec.arr[0]), (scalar * vec.arr[1]), (scalar * vec.arr[2])
+	);
+}
+
+// dividing a vector quantity by a scalar quantity (yikes)
+inline Vector3 operator / (const Vector3 & vec, double scalar) {
+	// scalar / {x,y,z}
+	return Vector3(
+		(scalar / vec.arr[0]), (scalar / vec.arr[1]), (scalar / vec.arr[2])
+	);
+}
+
 #endif
