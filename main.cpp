@@ -1,7 +1,13 @@
 #include <iostream>
 
+// Project Header
 #include "small_rays.hpp"
+
+// 3D Vector Utility
 #include "Vector3.hpp"
+
+// Pixel Colours
+#include "Colours.hpp"
 
 // Small Raytracing engine - for learning Graphics Programming
 //
