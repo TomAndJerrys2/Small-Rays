@@ -93,11 +93,34 @@ inline Vector3 operator - (const Vector3 & vec1, const Vector3 & vec2) {
 	);	
 }
 
-// Cross Product of two vector quantities
+// Multiplies two vector quantities
 inline Vector3 operator * (const Vector3 & vec1, const Vector3 & vec2) {
 	// x1 * x2, y1 * y2, z1 * z2
 	return Vector3(
 		(vec1.arr[0] * vec2.arr[0]), (vec1.arr[1] * vec2.arr[1]), (vec1.arr[2] * vec2.arr[2])
+	);
+}
+
+// Cross Product of two vector quantities
+inline Vector3 cross_product(const Vector3 & vec1, const Vector3 & vec2) {
+
+	// Two Vectors: vec1 {x1, y1, z1} and vec2 {x2, y2, z2}
+	// Taking the cross product of the two invloves
+	// 
+	// (y1 * z2) - (z1 * y2)
+	// (z1 * x2) - (x1 * z2)
+	// (x1 * y2) - (y1 * x2)
+	//
+	// Looking at it like this gives a better insight into the "cross"
+	// To me it becomes a lot more visible. I've represented the code in this
+	// way as well: vec1(y/z/x) * vec2(z/x/y) - vec1(z/x/y) * vec2(y/z/x)
+	//
+	// :))
+
+	return Vector3(
+		(vec1.arr[1] * vec2.arr[2]) - (vec1.arr[2] * vec2.arr[1]),
+		(vec1.arr[2] * vec2.arr[0]) - (vec1.arr[0] * vec2.arr[2]),
+		(vec1.arr[0] * vec2.arr[1]) - (vec1.arr[1] * vec2.arr[0]),
 	);
 }
 
@@ -122,6 +145,11 @@ inline Vector3 operator / (const Vector3 & vec, double scalar) {
 	return Vector3(
 		(scalar / vec.arr[0]), (scalar / vec.arr[1]), (scalar / vec.arr[2])
 	);
+}
+
+// returns the unit vector quantity i/e vector / its length
+inline Vector3 unit(const Vector3 & vec1) {
+	return (vec1 / vec1.length());
 }
 
 #endif
