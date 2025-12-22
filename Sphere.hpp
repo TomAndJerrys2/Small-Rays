@@ -22,7 +22,10 @@ class Sphere {
 			auto discriminant = (b * b) - 4 * a * c; // > 0: two intersections
 								// < 0: no real values that intersect
 								// = 0: intersects exactly once
-			return (discriminant >= 0); 		// since we are not working with imaginary values
+			
+			// Checking for quadratic values based on our discriminant: b^2 - 4ac
+			if(discriminant < 0) return -1.0;
+			else return (-b - std::sqrt(discriminant) / (2.0 * a));
 		}
 		
 	private:

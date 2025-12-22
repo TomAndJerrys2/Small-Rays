@@ -20,8 +20,13 @@ Colour get_raycolour(const ray & casted_ray) {
 	auto mySphere = Sphere(Vector3(0, 0, -1), 0.5, casted_ray);
 	
 	// Based on intersected values will return a colour i.e red
-	if(mySphere.sphere_intersect()) return Colour(1, 0, 0);
-	
+	auto intersection = mySphere.sphere_intersect();
+
+	if(intersection > 0.0) {
+		Vector3 xvec = unit_vector(casted_ray.current_pos() - Vector3(0, 0, -1);
+
+		return 0.5 * Colour(xvec.get_x(), xvec.get_y(), xvec.get_z() + 1);
+	}
 
 	Vector3 direction = unit_vector(casted_ray.direction());
 	double var = 0.5 * (unit_direction.get_y() + 1.0);
