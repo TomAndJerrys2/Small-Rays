@@ -44,6 +44,8 @@ class HittableList : public Hittable {
 					record = temp_record;
 				}
 			}
+
+			return has_hit;
 		}
 };
 
