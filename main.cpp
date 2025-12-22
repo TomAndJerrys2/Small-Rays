@@ -12,7 +12,16 @@
 // Ray Object
 #include "Ray.hpp"
 
-Colour get_raycolour(const ray & casted_ray) { return Colour(0, 0, 0); }
+// reconstruction to include linear interpolation (blending)
+Colour get_raycolour(const ray & casted_ray) { 
+	Vector3 direction = unit_vector(casted_ray.direction());
+	double var = 0.5 * (unit_direction.get_y() + 1.0);
+
+	return (
+		// Random RGB values for testing
+		(1.0 - var) * Colour(1.0, 1.0, 1.0) + var * Colour(0.5, 0.7, 1.0)
+	);
+}
 
 // Small Raytracing engine - for learning Graphics Programming
 //
