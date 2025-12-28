@@ -2,28 +2,25 @@
 #include "SmallRays.hpp"
 
 // Object to be Rendered
-#include "Sphere.hpp" 
+#include "Sphere.hpp"
+
+// Collision List detection
+#include "Hittable.hpp"
+#include "HittableList.hpp"
+
+#include <stdint.h>
 
 // reconstruction to include linear interpolation (blending)
-Colour get_raycolour(const ray & casted_ray) { 
-	auto mySphere = Sphere(Vector3(0, 0, -1), 0.5, casted_ray);
+constexpr Colour get_raycolour(const ray & casted_ray, const Hittable & world) { 
+	HitRecord record;
 	
-	// Based on intersected values will return a colour i.e red
-	auto intersection = mySphere.sphere_intersect();
-
-	if(intersection > 0.0) {
-		Vector3 xvec = unit_vector(casted_ray.current_pos() - Vector3(0, 0, -1);
-
-		return 0.5 * Colour(xvec.get_x(), xvec.get_y(), xvec.get_z() + 1);
-	}
+	if(world.on_hit(casted_ray, 0, infinity, record))
+		return (0.5 * (record.normal_val + Colour(1, 1, 1));
 
 	Vector3 direction = unit_vector(casted_ray.direction());
 	double var = 0.5 * (unit_direction.get_y() + 1.0);
 
-	return (
-		// Random RGB values for testing
-		(1.0 - var) * Colour(1.0, 1.0, 1.0) + var * Colour(0.5, 0.7, 1.0)
-	);
+	return (1.0 - var) * Colour(1.0, 1.0, 1.0) + var * Colour(0.5, 0.7, 1.0);
 }
 
 // Small Raytracing engine - for learning Graphics Programming
@@ -56,6 +53,12 @@ const bool generate_image() {
 	double viewport_width = viewport_height * (std::static_cast<double>(IMAGE_WIDTH) / IMAGE_HEIGHT);
 	double camera_center = Vector3(0, 0, 0); // origin
 	
+	// World Environment - Main rendering scene
+	HittableList world;
+
+	world.obj_push(make_shared<Sphere>(Vector3(0, 0, -1), 0.5));
+	world.obj_push(make_shared<Sphere>(Vector3(0, -100.5, -1), 100);
+
 	// for calculating the vectors across horizontially and down the vertical viewport edges
 	// this will then be presented depending on where the first pixel meets the viewport
 	auto viewport_vec1 = Vector3(viewport_width, 0, 0);
@@ -83,7 +86,7 @@ const bool generate_image() {
 			auto ray_direction = pixel_center - camera_center;
 			ray current_ray(camera_center, ray_direction);
 			
-			Colour pixel_colour = ray_colour(current_ray);
+			Colour pixel_colour = ray_colour(current_ray, world);
 			write_colour(std::cout, pixel_colour);
 		}
 	}

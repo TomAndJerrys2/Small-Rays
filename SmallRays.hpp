@@ -13,6 +13,7 @@
 #include "Ray.hpp"
 #include "Colour.hpp"
 #include "Vector3.hpp"
+#include "Interval.hpp"
 
 using std::make_shared; using std::shared_ptr;
 using std::make_unique; using std::unique_ptr;
