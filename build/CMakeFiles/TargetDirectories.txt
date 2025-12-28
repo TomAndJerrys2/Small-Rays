@@ -1,0 +1,2 @@
+/home/kyle/Desktop/thePlan/Small-Rays/build/CMakeFiles/edit_cache.dir
+/home/kyle/Desktop/thePlan/Small-Rays/build/CMakeFiles/rebuild_cache.dir
