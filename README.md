@@ -13,8 +13,7 @@ knowledge to more projects eventually, mabye more on the physics engine side but
 - Learning About 3D Graphics
 - Understanding math of vectors
 - Generating Optimized scenes
-- Using Build systems (We use CMake here, however I'm usually a massive Ninja fan)
-    - And yes! CMake can generate Ninja files which is why i've chose to use it here
+- Using Build systems: CMake and CMake Generators such as Ninja (my favourite)
 - Having Fun!
 
 # Author
@@ -23,3 +22,4 @@ Kyle Brady & Peter Shirley
 
 A Huge thanks to Peter and his Guide for making this project possible! I would have never stumbled into interest over graphics
 If it wasnt for his clear and concise methods for showing newbies like me how it can evolve
+
