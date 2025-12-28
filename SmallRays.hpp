@@ -8,6 +8,7 @@
 #include <memory>
 #include <limits>
 #include <cmath>
+#include <random>
 
 // Common Headers
 #include "Ray.hpp"
@@ -16,12 +17,15 @@
 #include "Interval.hpp"
 
 using std::make_shared; using std::shared_ptr;
-using std::make_unique; using std::unique_ptr;
 
 // Mathematical Constants
 constexpr double INFINITY = std::numeric_limits<double>::infinity();
 constexpr double PI = 3.1415926535897;
 
 inline double convert_radians(const double degrees) { return (PI * degrees) / 180.00; }
+
+inline double random_double() { return std::rand() / (RAND_MAX + 1.0); }
+
+inline double random_double(double min, double max) { return min + ( max - min) * random_double(); }
 
 #endif 

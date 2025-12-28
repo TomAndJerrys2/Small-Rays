@@ -1,29 +1,31 @@
 #ifndef INTERVAL_H
 #define INTERVAL_H
 
-class interval {
+#include "SmallRays.hpp"
 
-  public:
+class Interval {
 
-    double min, max;
+	public:
 
-    interval() : min(+infinity), max(-infinity) {} // Default interval is empty
+    		double min, max;
 
-    interval(double min, double max) : min(min), max(max) {}
+    		Interval() : min(+infinity), max(-infinity) {} // Default interval is empty
 
-    // size of the interval for rays
-    double size() const { return max - min; }
+    		Interval(double min, double max) : min(min), max(max) {}
 
-    // checking for each interval if a casted ray is contained within the scene
-    bool contains(double x) const { return min <= x && x <= max; }
+    		// size of the interval for rays
+    		double size() const { return max - min; }
 
-    // will improve - function for the minimum and maximum ray sizes
-    bool surrounds(double x) const { return min < x && x < max; }
+    		// checking for each interval if a casted ray is contained within the scene
+   		bool contains(double x) const { return min <= x && x <= max; }
 
-    static const interval empty, universe;    // where static and dynamic rays are either active or not 
+    		// will improve - function for the minimum and maximum ray sizes
+    		bool surrounds(double x) const { return min < x && x < max; }
+
+    		static const Interval empty, universe;    // where static and dynamic rays are either active or not 
 };
 
-const interval interval::empty = interval(+infinity, -infinity);
-const interval interval::universe = interval(-infinity, +infinity);
+const Interval Interval::empty = Interval(+infinity, -infinity);
+const Interval Interval::universe = Interval(-infinity, +infinity);
 
 #endif
