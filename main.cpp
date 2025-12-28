@@ -14,7 +14,7 @@
 constexpr Colour get_raycolour(const ray & casted_ray, const Hittable & world) { 
 	HitRecord record;
 	
-	if(world.on_hit(casted_ray, 0, infinity, record))
+	if(world.on_hit(casted_ray, Interval(0, infinity), record))
 		return (0.5 * (record.normal_val + Colour(1, 1, 1));
 
 	Vector3 direction = unit_vector(casted_ray.direction());

@@ -12,9 +12,10 @@ class Sphere : Hittable {
 
 		Sphere(const Vector3 & center, double radius) 
 			: ccenter(center), cradius(std::fmax(0, radius)) {}
-
-		bool sphere_intersect(const ray & ccasted_ray, double raytime_min,
-				double raytime_max, HitRecord & record) const override {
+		
+		// Virtual Definition found in Hittable
+		bool on_hit(const ray & ccasted_ray, Interval ray_time, 
+				HitRecord & record) const override {
 
 			Vector3 origin = ccenter - ccasted_ray.origin();
 			auto a = dot_product(ccasted_ray.direction(), ccasted_ray.direction());
@@ -31,10 +32,10 @@ class Sphere : Hittable {
 			auto sqrt_disc = std::sqrt(discriminant);
 
 			auto root = (b - sqrt_disc) / a;
-			if(root <= raytime_min || raytime_max <= root) {
+			if(!ray_time.surrounds(root)) {
 				root = (b + sqrt_disc) / a;
 
-				if(root <= raytime_min || raytime_max <= root)
+				if(!ray_time.surrounds(root))
 					return false;
 			}
 			
