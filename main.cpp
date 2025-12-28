@@ -46,7 +46,7 @@ const bool generate_image() {
 	// Looping through Columns and Rows for each Pixel;
 	
 	// Check the Image Height is atleast 1
-	IMAGE_HEIGHT = (IMAGE_HEIGHT < 1) ? 1 : IMAGE_HEIGHT;
+	// IMAGE_HEIGHT = (IMAGE_HEIGHT < 1) ? 1 : IMAGE_HEIGHT;
 
 	// Camera Settings
 	double focal_length = 1.0, viewport_height = 2.0;
