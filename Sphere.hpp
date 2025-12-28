@@ -1,7 +1,7 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "Vector.hpp"
+#include "SmallRays.hpp"
 #include "Hittable.hpp"
 
 class Sphere : Hittable {
@@ -40,7 +40,10 @@ class Sphere : Hittable {
 			
 			record.x = root;
 			record.point = ccasted_ray.current_pos(record.x);
-			record.normal_val = (record.point - center);
+
+			Vector3 normal_face = (record.x - ccenter) / radius;
+
+			record.set_front_face(ccasted_ray, normal_face);
 
 			return true
 		}

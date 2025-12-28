@@ -1,18 +1,7 @@
-#include <iostream>
-
 // Project Header
-#include "small_rays.hpp"
+#include "SmallRays.hpp"
 
-// 3D Vector Utility
-#include "Vector3.hpp"
-
-// Pixel Colours
-#include "Colours.hpp"
-
-// Ray Object
-#include "Ray.hpp"
-
-// Sphere Object to be Rendered
+// Object to be Rendered
 #include "Sphere.hpp" 
 
 // reconstruction to include linear interpolation (blending)

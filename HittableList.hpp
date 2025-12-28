@@ -1,10 +1,9 @@
-#pragma once
-
 #ifndef HITTABLELIST_H
 #define HITTABLELIST_H
 
 #include "Hittable.hpp"
-#include "RayMemory.hpp"
+// #include "RayMemory.hpp"
+
 #include <vector>
 
 // Smart Pointer to make references shared by

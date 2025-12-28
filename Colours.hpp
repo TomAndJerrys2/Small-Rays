@@ -1,8 +1,7 @@
 #ifndef COLOURS_H
 #define COLOURS_H
 
-#include "Vector3.hpp"
-#include <iostream>
+#include "SmallRays.hpp"
 
 using Colour = Vector3;
 
