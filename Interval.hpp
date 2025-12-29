@@ -2,6 +2,7 @@
 #define INTERVAL_H
 
 #include "SmallRays.hpp"
+#include <assert.h>
 
 class Interval {
 
@@ -21,8 +22,20 @@ class Interval {
 
     		// will improve - function for the minimum and maximum ray sizes
     		bool surrounds(double x) const { return min < x && x < max; }
+		
+		double clamp(double & x) const {
+			if (x < min) return min;
 
-    		static const Interval empty, universe;    // where static and dynamic rays are either active or not 
+			if(x > max) return max;
+
+			assert(x != max);
+			assert(x != min);
+
+			return x;
+		}
+		
+		// Where rays are casted too and spend there life-time
+    		static const Interval empty, universe;
 };
 
 const Interval Interval::empty = Interval(+infinity, -infinity);
