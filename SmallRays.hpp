@@ -24,8 +24,19 @@ constexpr double PI = 3.1415926535897;
 
 inline double convert_radians(const double degrees) { return (PI * degrees) / 180.00; }
 
-inline double random_double() { return std::rand() / (RAND_MAX + 1.0); }
+// inline double random_double() { return std::rand() / (RAND_MAX + 1.0); }
 
+inline double random_double() {
+	// using real distribution based on a bell curve for random
+	// intervals between 0.0 ... 1.0
+	static std::uniform_real_distribution<double> distrib(0.0, 1.0);
+	static std::m19937 gen;
+
+	return distrib(gen);
+}
+
+// Only returns real numbers from min ... max
 inline double random_double(double min, double max) { return min + ( max - min) * random_double(); }
+
 
 #endif 
