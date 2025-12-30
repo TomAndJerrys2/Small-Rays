@@ -18,7 +18,7 @@ class Interval {
     		double size() const { return max - min; }
 
     		// checking for each interval if a casted ray is contained within the scene
-   		bool contains(double x) const { return min <= x && x <= max; }
+   			bool contains(double x) const { return min <= x && x <= max; }
 
     		// will improve - function for the minimum and maximum ray sizes
     		bool surrounds(double x) const { return min < x && x < max; }
