@@ -163,4 +163,28 @@ inline Vector3 unit(const Vector3 & vec1) {
 	return (vec1 / vec1.length());
 }
 
+inline Vector3 random_unit_vec() {
+
+	bool random_run = true;
+	while(random_run != false) {
+		auto parent = Vector3::random(-1 , 1);
+		auto len_sq = parent.length_squred();
+
+		if(1e-160 < len_sq && len_sq <= 1) { 
+			return (
+				parent / sqrt(len_sq)
+			);	
+		}
+	}
+}
+
+inline Vector3 random_hemisphere_p(const Vector3 & normal) {
+	Vector3 on_unit_sphere = random_unit_vec();
+
+	if(dot_product(on_unit_sphere) > 0.0)
+		return on_unit_sphere;
+
+	else return -on_unit_sphere;
+}
+
 #endif
