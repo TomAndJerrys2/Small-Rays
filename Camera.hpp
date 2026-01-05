@@ -97,11 +97,13 @@ class camera {
 		}
 
 		// reconstruction to include linear interpolation (blending)
-		constexpr Colour get_raycolour(const ray & casted_ray, const Hittable & world) { 
+		Colour get_raycolour(const ray & casted_ray, const Hittable & world) const { 
 			HitRecord record;
 	
-			if(world.on_hit(casted_ray, Interval(0, infinity), record))
+			if(world.on_hit(casted_ray, Interval(0, infinity), record)) {
+				Vector3 direction = random_hemisphere_p(record.normal); 	
 				return (0.5 * (record.normal_val + Colour(1, 1, 1));
+			}
 
 			Vector3 direction = unit_vector(casted_ray.direction());
 			double var = 0.5 * (unit_direction.get_y() + 1.0);
