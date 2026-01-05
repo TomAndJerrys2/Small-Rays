@@ -13,6 +13,8 @@ class camera {
 
 		int8_t samples_pixel = 10;	// counts random samples for each pixel
 		
+		uint8_t max_depth = 10;		// maximum number of casted ray bounces in one scene
+
 		void render_scene(const Hittable & world) {
 			initialize();
 
@@ -27,7 +29,7 @@ class camera {
 					
 					for(size_t sample {0}; sample < samples_pixel; sample++) {
 						volatile ray casted_ray = get_ray(i, j);
-						pixel_colour += ray_colour(casted_ray, world);
+						pixel_colour += ray_colour(casted_ray, max_depth, world);
 					}
 								
 					write_colour(std::cout, pixel_samples_scale * pixel_colour);
@@ -97,12 +99,15 @@ class camera {
 		}
 
 		// reconstruction to include linear interpolation (blending)
-		Colour get_raycolour(const ray & casted_ray, const Hittable & world) const { 
+		Colour get_raycolour(const ray & casted_ray, int depth, const Hittable & world) const { 
+			if(depth <= 0) 
+				return Colour(0, 0, 0);
+		
 			HitRecord record;
 	
 			if(world.on_hit(casted_ray, Interval(0, infinity), record)) {
 				Vector3 direction = random_hemisphere_p(record.normal); 	
-				return (0.5 * (record.normal_val + Colour(1, 1, 1));
+				return (0.5 * get_raycolour(ray(record.x, direction), depth - 1, world));
 			}
 
 			Vector3 direction = unit_vector(casted_ray.direction());
