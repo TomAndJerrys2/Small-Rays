@@ -7,8 +7,12 @@
 class camera {
 
 	public:
+		double aspect_ratio = 1.0;	// ratio of image width over image height
 		
-	
+		int8_t IMAGE_HEIGHT = 100;
+
+		int8_t samples_pixel = 10;	// counts random samples for each pixel
+		
 		void render_scene(const Hittable & world) {
 			initialize();
 
@@ -19,16 +23,14 @@ class camera {
 				std::clog << "\rLines Left: " << (IMAGE_HEIGHT - 1) << ' ' << std::flush;
 
 				for(uint8_t j = 0; j < IMAGE_WIDTH; j++) {
-					// Important: Think of i as rows and j as columns
-					// i.e our vertical and horizontal buffers
-					auto pixel_center = (original_pixel + (i * delta_vec1) 
-							+ (j * delta_vec2));
-
-					auto ray_direction = pixel_center - camera_center;
-					ray current_ray(camera_center, ray_direction);
-			
-					Colour pixel_colour = ray_colour(current_ray, world);
-					write_colour(std::cout, pixel_colour);
+					Colour pixel_colour(0, 0, 0);
+					
+					for(size_t sample {0}; sample < samples_pixel; sample++) {
+						volatile ray casted_ray = get_ray(i, j);
+						pixel_colour += ray_colour(casted_ray, world);
+					}
+								
+					write_colour(std::cout, pixel_samples_scale * pixel_colour);
 				}
 			}
 	
@@ -36,6 +38,10 @@ class camera {
 		}
 		
 	private:
+		uint32_t IMAGE_WIDTH;
+
+		double pixel_samples_scale;
+
 		// Pixel center from 0, 0
 		Vector3 center {};
 
@@ -44,13 +50,15 @@ class camera {
 		
 		// for changes u in the x and changes v in the y
 		Vector3 delta_vec1; Vector3 delta_vec2;
-
+	
 		void initialize() {
 			// Camera Settings
 			double focal_length = 1.0;
 			double viewport_height = 2.0;
 			double viewport_width = viewport_height * 
-				(std::static_cast<double>(IMAGE_WIDTH) / IMAGE_HEIGHT);
+				(static_cast<double>(IMAGE_WIDTH) / IMAGE_HEIGHT);
+			
+			pixel_samples_scale = 1.0 / pixels_sample;
 
 			center = Vector3(0, 0, 0); // origin	
 
@@ -62,12 +70,30 @@ class camera {
 			// Change in horizontal and veritcal vectors from each pixel
 			auto delta_vec1 = viewport_vec1 / IMAGE_WIDTH;
 			auto delta_vec2 = viewport_vec2 / IMAGE_HEIGHT;
-
+			
 			// Grab the upper most pixel
 			auto viewport_upper_left = (camera_center - Vector3(0, 0, focal_length) 
 					- (viewport_vec1 / 2) - (viewport_vec2 / 2));
 			auto original_pixel = (viewport_upper_left + 0.5 * (delta_vec1 + delta_vec2));
 			
+		}
+
+		ray get_ray(int8_t i, int8_t j) const {
+			// construct camera ray from origin directed at a 
+			// random sampled pixel located at i, j
+			auto offset = sample_square();
+			auto pix_sample = pixel_location +
+				((i + offset.get_x()) * delta_vec1)
+			      + ((j + offset.get_y()) * delta_vec2);
+
+			auto ray_origin = center;
+			auto raycasted_direction = pix_sample - ray_origin;
+
+			return ray(ray_origin, ray_direction);
+		}
+
+		constexpr Vector3 sample_square() const {
+			return Vector3(random_double() - 0.5, random_double() - 0.5, 0);
 		}
 
 		// reconstruction to include linear interpolation (blending)

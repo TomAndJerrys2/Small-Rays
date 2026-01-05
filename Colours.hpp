@@ -3,6 +3,8 @@
 
 #include "SmallRays.hpp"
 
+#define COLOUR_SIZE 256
+
 using Colour = Vector3;
 
 // Write Colour Pixels via a vector quantity
@@ -13,10 +15,20 @@ void write_colour(std::ostream & output, const Colour & p_colour) {
 	auto green = p_colour.get_y();
 	auto blue = p_colour.get_z();
 	
+	static const interval intensity(0.000, 0.999);
+
 	// check for optimizations later...
-	uint16_t red_byte = static_cast<uint16_t>(255.999 * red);
-	uint16_t green_byte = static_cast<uint16_t>(255.999 * green);
-	uint16_t blue_byte = static_cast<uint16_t>(255.999 * blue);
+	uint16_t red_byte = static_cast<uint16_t>(
+		COLOUR_SIZE * intensity.clamp(red)
+	);
+
+	uint16_t green_byte = static_cast<uint16_t>(
+		COLOUR_SIZE * intensity.clamp(green)
+	);
+
+	uint16_t blue_byte = static_cast<uint16_t>(
+		COLOUR_SIZE * intensity.clamp(blue)
+	);
 
 	// Writes output from Ostream
 	output << red_byte << ' ' << green_byte << ' ' << blue_byte << '\n';

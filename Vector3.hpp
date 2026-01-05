@@ -31,6 +31,18 @@ class Vector3 {
 				+ (arr[2] * arr[2]));
 		}
 
+		static Vector3 random() {
+			return Vector3(random_double(), 
+					random_double(), 
+					random_double());
+		}
+		
+		static Vector3 random(const double min, const double max) {
+			return Vector3(random_double(min, max), 
+					random_double(min, max), 
+					random_double(min, max));
+		}
+
 		double length() const { return std::sqrt(length_squared); }
 		
 		// Negate x, y and z on Vector3

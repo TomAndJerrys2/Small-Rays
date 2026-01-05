@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 // reconstruction to include linear interpolation (blending)
-constexpr Colour get_raycolour(const ray & casted_ray, const Hittable & world) { 
+const inline Colour get_raycolour(const ray & casted_ray, const Hittable & world) { 
 	HitRecord record;
 	
 	if(world.on_hit(casted_ray, Interval(0, infinity), record))
@@ -38,6 +38,7 @@ int main() {
 	Camera world_camera;
 	world_camera.aspect_ratio = 16.0 / 9.0;
 	world_camera.IMAGE_WIDTH = 400;
+	world_camera.samples_per_pixel = 100;
 
 	world_camera.render(world);
 
