@@ -8,10 +8,10 @@ class Sphere : Hittable {
 		
 	public:
 		// When a ray intersects with our sphere 
-		Sphere() {}
-
 		Sphere(const Vector3 & center, double radius) 
-			: ccenter(center), cradius(std::fmax(0, radius)) {}
+			: ccenter(center), cradius(std::fmax(0, radius)) {
+			// Init mat shared pointer here...	
+		}
 		
 		// Virtual Definition found in Hittable
 		bool on_hit(const ray & ccasted_ray, Interval ray_time, 
@@ -42,9 +42,9 @@ class Sphere : Hittable {
 			record.x = root;
 			record.point = ccasted_ray.current_pos(record.x);
 
-			Vector3 normal_face = (record.x - ccenter) / radius;
-
+			Vector3 normal_face = (record.x - ccenter) / radius;	
 			record.set_front_face(ccasted_ray, normal_face);
+			record.Material = material;
 
 			return true
 		}
@@ -52,6 +52,7 @@ class Sphere : Hittable {
 	private:
 		const Vector3 ccenter {0, 0, 0};
 		double cradius {0};
+		shared_ptr<Material> material;
 };
 
 

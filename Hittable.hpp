@@ -3,12 +3,16 @@
 
 #include "SmallRays.hpp"
 
+class Material;
+
 class HitRecord {
 	
 	public:
 		Vector3 point;
 		Vector3 normal_val;
 		double double x;
+		
+		shared_ptr<material> material;
 
 		bool front_face;
 
