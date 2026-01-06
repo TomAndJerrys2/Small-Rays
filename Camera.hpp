@@ -105,9 +105,9 @@ class camera {
 		
 			HitRecord record;
 	
-			if(world.on_hit(casted_ray, Interval(0, infinity), record)) {
-				Vector3 direction = random_hemisphere_p(record.normal); 	
-				return (0.5 * get_raycolour(ray(record.x, direction), depth - 1, world));
+			if(world.on_hit(casted_ray, Interval(0.001, infinity), record)) {
+				Vector3 direction = record.normal + random_unit_vec(); 	
+				return (0.1 * get_raycolour(ray(record.x, direction), depth - 1, world));
 			}
 
 			Vector3 direction = unit_vector(casted_ray.direction());
