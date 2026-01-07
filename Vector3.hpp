@@ -194,4 +194,8 @@ inline Vector3 random_hemisphere_p(const Vector3 & normal) {
 	else return -on_unit_sphere;
 }
 
+inline Vector3 reflect(const Vector3 & vec1, const Vector3 & vec2) {
+	return vec1 - (2 * dot_product(vec1, vec2) * vec2);
+}
+
 #endif
