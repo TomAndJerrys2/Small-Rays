@@ -8,8 +8,8 @@ class Sphere : Hittable {
 		
 	public:
 		// When a ray intersects with our sphere 
-		Sphere(const Vector3 & center, double radius) 
-			: ccenter(center), cradius(std::fmax(0, radius)) {
+		Sphere(const Vector3 & center, double radius, shared_ptr<Material> mat) 
+			: ccenter(center), cradius(std::fmax(0, radius)), material(mat) {
 			// Init mat shared pointer here...	
 		}
 		

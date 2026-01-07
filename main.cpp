@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#define DEBUG_TEST 1
+
 // reconstruction to include linear interpolation (blending)
 const inline Colour get_raycolour(const ray & casted_ray, const Hittable & world) { 
 	HitRecord record;
@@ -31,9 +33,19 @@ int main() {
 
 	// World Environment - Main rendering scene
 	HittableList world;
+	
+#if DEBUG_TEST == 1
 
-	world.obj_push(make_shared<Sphere>(Vector3(0, 0, -1), 0.5));
-	world.obj_push(make_shared<Sphere>(Vector3(0, -100.5, -1), 100);
+	auto material_ground = make_shared<Lambertian>(Colour(0.8, 0.8, 0.0));
+	auto material_center = make_shared<Lambertian>(Colour(0.1, 0.2, 0.5));
+	auto material_left = make_shared<Metal>(Colour(0.8, 0.8, 0.8));
+	auto material_right = make_shared<Metal>(Colour(0.8, 0.6, 0.2));
+
+	world.obj_push(make_shared<Sphere> (Vector3(0.0, -100.5, -1.0), 100.0, material_ground));
+	world.obj_push(make_share<Sphere> (Vector3(0.0, 0.0, -1.2), 0.5, material_center));
+	world.obj_push(make_shared<Sphere> (Vector3(1.0, 0.0, -1.0), 0.5, material_left));
+	world.obj_push(make_shared<Sphere> (Vector3(-1.0, 0.0, -1.0), 0.5, material_right));
+#endif
 
 	Camera world_camera;
 	world_camera.aspect_ratio = 16.0 / 9.0;

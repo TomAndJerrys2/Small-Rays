@@ -3,6 +3,7 @@
 
 #include "Hittable.hpp"
 #include "SmallRays.hpp"
+#include "Material.hpp"
 
 class camera {
 
@@ -106,8 +107,15 @@ class camera {
 			HitRecord record;
 	
 			if(world.on_hit(casted_ray, Interval(0.001, infinity), record)) {
-				Vector3 direction = record.normal + random_unit_vec(); 	
-				return (0.1 * get_raycolour(ray(record.x, direction), depth - 1, world));
+				ray scattered {};
+				Colour attenuation {};
+
+				if(record.material->scatter(casted_ray, record, 
+							attenuation, scattered))
+					return attenuation * get_raycolour(scattered, 
+							depth - 1, world);
+
+				return Colour(0, 0, 0);
 			}
 
 			Vector3 direction = unit_vector(casted_ray.direction());
