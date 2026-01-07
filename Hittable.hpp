@@ -9,7 +9,7 @@ class HitRecord {
 	
 	public:
 		Vector3 point;
-		Vector3 normal_val;
+		Vector3 normal;
 		double double x;
 		
 		shared_ptr<material> material;

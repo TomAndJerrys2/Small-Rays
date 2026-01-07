@@ -22,6 +22,10 @@ class Lambertian : public Material {
 				Colour & attenuation, ray & scattered) const override {
 			
 			auto scatter_dir = record.normal + random_unit_vec();
+			
+			if(scatter_dir.near_zero())
+				scatter_dir = record.normal;
+
 			scattered = ray(record.x, scatter_dir);
 			attenuation = albedo_;
 

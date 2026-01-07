@@ -25,10 +25,19 @@ class Vector3 {
 		double get_y() const { return arr[1]; }
 		double get_z() const { return arr[2]; }
 		
+		double length() const { return std::sqrt(length_squared); }
+		
 		double length_squared() const { 
 			return ((arr[0] * arr[0]) 
 				+ (arr[1] * arr[1]) 
 				+ (arr[2] * arr[2]));
+		}
+
+		bool near_zero() const {
+			auto seq = 1e-8;
+			return ( (std::fabs(e[0]) < seq) && (std::fabs(e[1]) < seq)
+					&& (std::fabs(e[2]) < seq)
+			);
 		}
 
 		static Vector3 random() {
@@ -43,8 +52,6 @@ class Vector3 {
 					random_double(min, max));
 		}
 
-		double length() const { return std::sqrt(length_squared); }
-		
 		// Negate x, y and z on Vector3
 		Vector3 operator - () const {
 			return Vector3(-arr[0], -arr[1], -arr[2]);
