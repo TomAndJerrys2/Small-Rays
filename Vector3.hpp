@@ -198,4 +198,14 @@ inline Vector3 reflect(const Vector3 & vec1, const Vector3 & vec2) {
 	return vec1 - (2 * dot_product(vec1, vec2) * vec2);
 }
 
+// Implementation of Snells law to find the refracted ray
+inline Vector3 refract(const Vector3 & vec1, const Vector3 & n, double crefract) {
+	auto cos_theta = std::fmin(dot_product(-vec1, n), 1.0);
+
+	Vector3 ray_out = crefract * (vec1 + (cos_theta * n));
+	Vector3 ray_parallel = -(std::sqrt(std::fabs(1.0 - ray_out.length_squared()))) * n;
+
+	return ray_out + ray_parallel;
+}
+
 #endif

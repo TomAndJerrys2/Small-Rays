@@ -7,7 +7,7 @@
 // Collision List detection
 #include "Hittable.hpp"
 #include "HittableList.hpp"
-
+#include "Material.hpp"
 #include <stdint.h>
 
 #define DEBUG_TEST 1
