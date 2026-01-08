@@ -69,7 +69,18 @@ class Dielectric : public Material {
 			Vector3 unit_dir = unit_vector(ray_in.direction());
 			Vector3 refracted = refract(unit_dir, record.normal, real_index);
 
-			scattered = ray(record.x, refracted);
+			double cos_theta = std::fmin(dot_product(-unit_dir, record.normal), 1.0);
+			double sin_theta = std::sqrt(1.0 - cos_theta * cos_theta); // by Eulers identity
+
+			bool cannot_refract = real_index * sin_theta > 1.0;
+			Vector3 ray_direction;
+
+			if(cannot_refract) 
+				ray_direction = reflect(unit_dir, record.normal);
+			else 
+				ray_direction = reflect(unit_dir, record.normal, real_index);
+
+			scattered = ray(record.x, ray_direction);
 			return true;
 		}
 
