@@ -38,7 +38,7 @@ int main() {
 
 	auto material_ground = make_shared<Lambertian>(Colour(0.8, 0.8, 0.0));
 	auto material_center = make_shared<Lambertian>(Colour(0.1, 0.2, 0.5));
-	auto material_left = make_shared<Metal>(Colour(0.8, 0.8, 0.8));
+	auto material_left = make_shared<Dielectric>(1.0 / 1.33);
 	auto material_right = make_shared<Metal>(Colour(0.8, 0.6, 0.2));
 
 	world.obj_push(make_shared<Sphere> (Vector3(0.0, -100.5, -1.0), 100.0, material_ground));
